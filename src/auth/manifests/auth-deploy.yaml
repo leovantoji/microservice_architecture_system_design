@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${AUTH_APP_NAME}
+  labels:
+    app: ${AUTH_APP_NAME}
+spec:
+  replicas: ${REPLICAS}
+  selector:
+    matchLabels:
+      app: ${AUTH_APP_NAME}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: ${MAX_SURGE}
+  template:
+    metadata:
+      labels:
+        app: ${AUTH_APP_NAME}
+    spec:
+      containers:
+        - name: ${AUTH_APP_NAME}
+          image: ${DOCKER_ACCOUNT}/${AUTH_DOCKER_REPO}
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: ${AUTH_PORT}
+          envFrom:
+            - configMapRef:
+                name: ${AUTH_APP_NAME}-configmap
+            - secretRef:
+                name: ${AUTH_APP_NAME}-secret

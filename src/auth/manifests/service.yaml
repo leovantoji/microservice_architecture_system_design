@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ${AUTH_APP_NAME}
+spec:
+  selector:
+    app: ${AUTH_APP_NAME}
+  type: ClusterIP
+  ports:
+    - port: ${AUTH_PORT}
+      targetPort: ${AUTH_PORT}
+      protocol: TCP

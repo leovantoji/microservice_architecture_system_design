@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${GATEWAY_APP_NAME}
+  labels:
+    app: ${GATEWAY_APP_NAME}
+spec:
+  replicas: ${REPLICAS}
+  selector:
+    matchLabels:
+      app: ${GATEWAY_APP_NAME}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: ${MAX_SURGE}
+  template:
+    metadata:
+      labels:
+        app: ${GATEWAY_APP_NAME}
+    spec:
+      containers:
+        - name: ${GATEWAY_APP_NAME}
+          image: ${DOCKER_ACCOUNT}/${GATEWAY_DOCKER_REPO}
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: ${GATEWAY_PORT}
+          envFrom:
+            - configMapRef:
+                name: ${GATEWAY_APP_NAME}-configmap
+            - secretRef:
+                name: ${GATEWAY_APP_NAME}-secret

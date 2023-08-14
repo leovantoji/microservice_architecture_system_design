@@ -1,1 +1,4 @@
 designs
+.env
+venv
+kubectl*

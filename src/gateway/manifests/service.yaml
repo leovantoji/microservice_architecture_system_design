@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ${GATEWAY_APP_NAME}
+spec:
+  selector:
+    app: ${GATEWAY_APP_NAME}
+  type: ClusterIP
+  ports:
+    - port: ${GATEWAY_PORT}
+      targetPort: ${GATEWAY_PORT}
+      protocol: TCP
