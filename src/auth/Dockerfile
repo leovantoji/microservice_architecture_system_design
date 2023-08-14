@@ -17,6 +17,9 @@ COPY ${APP_LOCAL_PATH}/requirements.txt /app
 RUN pip install --no-cache-dir -r /app/requirements.txt
 COPY ${APP_LOCAL_PATH} /app
 
+COPY src/config.py /app
+COPY .env /app
+
 EXPOSE ${PORT}
 
 CMD ["python3", "server.py"]

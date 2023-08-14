@@ -16,10 +16,10 @@ class Settings(BaseSettings):
     mysql_password: str
     mysql_db: str
     mysql_port: int
-    auth_port: int
     auth_docker_repo: str
     auth_app_name: str
     auth_local_path: str
+    auth_port: int
     jwt_secret: str
     algorithm: str
     access_token_expire_minutes: int
@@ -30,7 +30,7 @@ class Settings(BaseSettings):
     gateway_port: int
     gateway_local_path: str
     mongo_uri: str
-    mongo_port: str
+    mongo_port: int
 
     model_config = SettingsConfigDict(env_file=find_dotenv())
 

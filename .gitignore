@@ -2,3 +2,4 @@ designs
 .env
 venv
 kubectl*
+__pycache__

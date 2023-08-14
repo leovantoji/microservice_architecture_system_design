@@ -25,7 +25,7 @@ define do_make_manifests
 	envsubst < src/$(1)/manifests/service.yaml | kubectl apply -f -
 endef
 
-auth_docker_build:
+auth_build_docker:
 	$(call do_build_docker,$(AUTH_PORT),$(AUTH_LOCAL_PATH),$(AUTH_DOCKER_REPO),src/auth/Dockerfile)
 
 auth_push_docker:
@@ -34,7 +34,7 @@ auth_push_docker:
 auth_manifests:
 	$(call do_make_manifests,auth)
 
-gateway_docker_build:
+gateway_build_docker:
 	$(call do_build_docker,$(GATEWAY_PORT),$(GATEWAY_LOCAL_PATH),$(GATEWAY_DOCKER_REPO),src/gateway/Dockerfile)
 
 gateway_push_docker:

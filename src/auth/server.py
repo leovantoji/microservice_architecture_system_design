@@ -1,17 +1,11 @@
-import sys
 from datetime import datetime
 from datetime import timedelta
 
 import jwt
+from config import settings
 from flask import Flask
 from flask import request
 from flask_mysqldb import MySQL
-
-
-sys.path.append("..")
-
-
-from config import settings  # noqa: E402
 
 
 server = Flask(__name__)
@@ -102,4 +96,4 @@ def create_jwt(username, secret, authz: bool):
 
 
 if __name__ == "__main__":
-    server.run(host="0.0.0.0", port=settings.port)  # noqa: S104
+    server.run(host="0.0.0.0", port=settings.auth_port)  # noqa: S104
