@@ -153,3 +153,11 @@ We need to enable `minikube ingress` addon.
 ```bash
 minikube addons enable ingress
 ```
+
+**NOTE**: Be carefully not to name the `PORT` variable as `${APP_NAME}_PORT` because `minikube` will suspectedly (I haven't verified) automatically create a service for the deployment with the name `${APP_NAME}_PORT`. Thus, we'll run into a problem where the docker image runs on its own but refuses to run in `minikube`. This was what happened to me, and I had to change the name of the variable to `PORT_${AUTH_NAME}`.
+
+To scale the deployment, we can use the following command.
+
+```bash
+kubectl scale deployment --replicas=0 ${APP_NAME}
+```

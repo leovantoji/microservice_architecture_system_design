@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: ${GATEWAY_APP_NAME}-configmap
 data:
-  AUTH_SVC_ADDRESS: "${AUTH_APP_NAME}:${AUTH_PORT}"
+  AUTH_SVC_ADDRESS: "${AUTH_APP_NAME}:${PORT_AUTH}"

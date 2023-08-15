@@ -3,13 +3,12 @@ import sys
 
 import gridfs
 import pika
+from auth import validate
+from auth_svc import access
 from flask import Flask
 from flask import request
 from flask_pymongo import PyMongo
 from storage import util
-
-from .auth import validate
-from .auth_svc import access
 
 sys.path.append("..")
 
@@ -68,4 +67,4 @@ def download():
 
 
 if __name__ == "__main__":
-    server.run(host="0.0.0.0", port=settings.gateway_port)  # noqa: S104
+    server.run(host="0.0.0.0", port=settings.port_gateway)  # noqa: S104

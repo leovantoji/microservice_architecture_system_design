@@ -19,14 +19,13 @@ endef
 
 define do_make_manifests
 	echo "✨ Making manifests..."
-	envsubst < src/$(1)/manifests/$(1)-deploy.yaml | kubectl apply -f - && \
-	envsubst < src/$(1)/manifests/configmap.yaml | kubectl apply -f - && \
-	envsubst < src/$(1)/manifests/secret.yaml | kubectl apply -f - && \
-	envsubst < src/$(1)/manifests/service.yaml | kubectl apply -f -
+	for file in src/$(1)/manifests/*.yaml; do \
+		envsubst < $$file | kubectl apply -f -; \
+	done
 endef
 
 auth_build_docker:
-	$(call do_build_docker,$(AUTH_PORT),$(AUTH_LOCAL_PATH),$(AUTH_DOCKER_REPO),src/auth/Dockerfile)
+	$(call do_build_docker,$(PORT_AUTH),$(AUTH_LOCAL_PATH),$(AUTH_DOCKER_REPO),src/auth/Dockerfile)
 
 auth_push_docker:
 	$(call do_push_docker,$(AUTH_DOCKER_REPO))
@@ -35,7 +34,7 @@ auth_manifests:
 	$(call do_make_manifests,auth)
 
 gateway_build_docker:
-	$(call do_build_docker,$(GATEWAY_PORT),$(GATEWAY_LOCAL_PATH),$(GATEWAY_DOCKER_REPO),src/gateway/Dockerfile)
+	$(call do_build_docker,$(PORT_GATEWAY),$(GATEWAY_LOCAL_PATH),$(GATEWAY_DOCKER_REPO),src/gateway/Dockerfile)
 
 gateway_push_docker:
 	$(call do_push_docker,$(GATEWAY_DOCKER_REPO))

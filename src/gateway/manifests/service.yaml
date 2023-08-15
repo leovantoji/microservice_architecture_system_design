@@ -7,6 +7,6 @@ spec:
     app: ${GATEWAY_APP_NAME}
   type: ClusterIP
   ports:
-    - port: ${GATEWAY_PORT}
-      targetPort: ${GATEWAY_PORT}
+    - port: ${PORT_GATEWAY}
+      targetPort: ${PORT_GATEWAY}
       protocol: TCP

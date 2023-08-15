@@ -29,7 +29,7 @@ spec:
               memory: "256Mi"
               cpu: "500m"
           ports:
-            - containerPort: ${AUTH_PORT}
+            - containerPort: ${PORT_AUTH}
           envFrom:
             - configMapRef:
                 name: ${AUTH_APP_NAME}-configmap

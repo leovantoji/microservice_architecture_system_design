@@ -19,7 +19,7 @@ class Settings(BaseSettings):
     auth_docker_repo: str
     auth_app_name: str
     auth_local_path: str
-    auth_port: int
+    port_auth: int
     jwt_secret: str
     algorithm: str
     access_token_expire_minutes: int
@@ -27,7 +27,7 @@ class Settings(BaseSettings):
     # gateway
     gateway_docker_repo: str
     gateway_app_name: str
-    gateway_port: int
+    port_gateway: int
     gateway_local_path: str
     mongo_uri: str
     mongo_port: int

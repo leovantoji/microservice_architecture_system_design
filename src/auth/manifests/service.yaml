@@ -7,6 +7,6 @@ spec:
     app: ${AUTH_APP_NAME}
   type: ClusterIP
   ports:
-    - port: ${AUTH_PORT}
-      targetPort: ${AUTH_PORT}
+    - port: ${PORT_AUTH}
+      targetPort: ${PORT_AUTH}
       protocol: TCP

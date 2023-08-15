@@ -1,6 +1,5 @@
 import requests
-
-from ....src.config import settings
+from config import settings
 
 
 def token(request):
@@ -13,7 +12,7 @@ def token(request):
         return None, ("missing credentials", 401)
 
     response = requests.post(
-        f"https://{settings.auth_app_name}:{settings.auth_port}/validate",
+        f"https://{settings.auth_app_name}:{settings.port_auth}/validate",
         headers={"Authorization": token},
         timeout=30,
     )

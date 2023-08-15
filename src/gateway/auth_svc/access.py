@@ -1,6 +1,5 @@
 import requests
-
-from ....src.config import settings
+from config import settings
 
 
 def login(request):
@@ -10,7 +9,7 @@ def login(request):
 
     basic_auth = (auth.username, auth.password)
     response = requests.post(
-        url=f"https://{settings.auth_app_name}:{settings.auth_port}/login",
+        url=f"https://{settings.auth_app_name}:{settings.port_auth}/login",
         auth=basic_auth,
         timeout=30,
     )
