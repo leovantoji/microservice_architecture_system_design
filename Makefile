@@ -24,6 +24,16 @@ define do_make_manifests
 	done
 endef
 
+define do_delete_manifests
+	echo "✨ Deleting manifests..."
+	for file in src/$(1)/manifests/*.yaml; do \
+		envsubst < $$file | kubectl delete -f -; \
+	done
+endef
+
+export_env:
+	export $(grep -v ^# .env | xargs)
+
 auth_build_docker:
 	$(call do_build_docker,$(PORT_AUTH),$(AUTH_LOCAL_PATH),$(AUTH_DOCKER_REPO),src/auth/Dockerfile)
 
@@ -33,6 +43,9 @@ auth_push_docker:
 auth_manifests:
 	$(call do_make_manifests,auth)
 
+auth_delete_manifests:
+	$(call do_delete_manifests,auth)
+
 gateway_build_docker:
 	$(call do_build_docker,$(PORT_GATEWAY),$(GATEWAY_LOCAL_PATH),$(GATEWAY_DOCKER_REPO),src/gateway/Dockerfile)
 
@@ -41,3 +54,24 @@ gateway_push_docker:
 
 gateway_manifests:
 	$(call do_make_manifests,gateway)
+
+gateway_delete_manifests:
+	$(call do_delete_manifests,gateway)
+
+rabbitmq_manifests:
+	$(call do_make_manifests,rabbitmq)
+
+rabbitmq_delete_manifests:
+	$(call do_delete_manifests,rabbitmq)
+
+converter_build_docker:
+	$(call do_build_docker,,$(CONVERTER_LOCAL_PATH),$(CONVERTER_DOCKER_REPO),src/converter/Dockerfile)
+
+converter_push_docker:
+	$(call do_push_docker,$(CONVERTER_DOCKER_REPO))
+
+converter_manifests:
+	$(call do_make_manifests,converter)
+
+converter_delete_manifests:
+	$(call do_delete_manifests,converter)

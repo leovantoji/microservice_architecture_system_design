@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ${CONVERTER_APP_NAME}-configmap
+data:
+  MP3_QUEUE: ${MP3_QUEUE}
+  VIDEO_QUEUE: ${VIDEO_QUEUE}

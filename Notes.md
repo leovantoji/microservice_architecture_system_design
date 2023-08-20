@@ -161,3 +161,29 @@ To scale the deployment, we can use the following command.
 ```bash
 kubectl scale deployment --replicas=0 ${APP_NAME}
 ```
+
+### Kubernetes StatefulSet
+
+From the [official doc](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/), **StatefulSet** is the workload API object used to manage stateful applications. Manages the deployment and scaling of a set of Pods, and *provides guarantees about the ordering and uniqueness* of these pods.
+
+Like a Deployment, a StatefulSet manages Pods that are based on an identical container spec. Unlike a Deployment, a StatefulSet maintains a sticky identity for each of its Pods. These pods are created from the same spec, but are not interchangeable: each has a persistent identifier that it maintains across any rescheduling.
+
+<img src="/artifacts/images/statefulset_persistent_identifier.png" width=600>
+
+We want to use `StatefulSet` to deploy `RabbitMQ` because we want to have a persistent volume for the `RabbitMQ` pod. This is because we want to persist the messages in the queue even if the pod is restarted.
+
+<img src="/artifacts/images/statefulset_example.png" width=600>
+
+We'll mount the physical storage on our local disk to the **container instance**. The storage volume that was mounted to the local disk will remain intact even if the container instance dies for whatever reasons. When the new pod is deployed, the storage volume will be mounted to the container instance again.
+
+**Deployment vs. StatefulSet**:
+
+<img src="/artifacts/images/deployment_vs_statefulset.png" width=600>
+
+<img src="/artifacts/images/persistent_volume_claim.png" width=600>
+
+I have to use the following command to test `rabbitmq` ui. Read more [here](https://minikube.sigs.k8s.io/docs/handbook/accessing/).
+
+```bash
+minikube service rabbitmq --url
+```

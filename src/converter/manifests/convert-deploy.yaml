@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${CONVERTER_APP_NAME}
+  labels:
+    app: ${CONVERTER_APP_NAME}
+spec:
+  replicas: ${REPLICAS}
+  selector:
+    matchLabels:
+      app: ${CONVERTER_APP_NAME}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: ${MAX_SURGE}
+  template:
+    metadata:
+      labels:
+        app: ${CONVERTER_APP_NAME}
+    spec:
+      containers:
+        - name: ${CONVERTER_APP_NAME}
+          image: ${DOCKER_ACCOUNT}/${CONVERTER_DOCKER_REPO}
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          envFrom:
+            - configMapRef:
+                name: ${CONVERTER_APP_NAME}-configmap
+            - secretRef:
+                name: ${CONVERTER_APP_NAME}-secret

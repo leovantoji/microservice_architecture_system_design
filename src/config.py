@@ -32,6 +32,18 @@ class Settings(BaseSettings):
     mongo_uri: str
     mongo_port: int
 
+    # rabbitmq
+    rabbitmq_app_name: str
+    port_http: int
+    port_amqp: int
+    video_queue: str
+    mp3_queue: str
+
+    # converter
+    converter_docker_repo: str
+    converter_app_name: str
+    converter_local_path: str
+
     model_config = SettingsConfigDict(env_file=find_dotenv())
 
 
