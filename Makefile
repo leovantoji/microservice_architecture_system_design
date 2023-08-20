@@ -75,3 +75,15 @@ converter_manifests:
 
 converter_delete_manifests:
 	$(call do_delete_manifests,converter)
+
+notification_build_docker:
+	$(call do_build_docker,,$(NOTIFICATION_LOCAL_PATH),$(NOTIFICATION_DOCKER_REPO),src/notification/Dockerfile)
+
+notification_push_docker:
+	$(call do_push_docker,$(NOTIFICATION_DOCKER_REPO))
+
+notification_manifests:
+	$(call do_make_manifests,notification)
+
+notification_delete_manifests:
+	$(call do_delete_manifests,notification)

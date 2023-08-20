@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 from datetime import timedelta
 
@@ -10,6 +11,7 @@ from flask_mysqldb import MySQL
 
 server = Flask(__name__)
 mysql = MySQL(server)
+server.config["MYSQL_PORT"] = int(os.environ.get("MYSQL_PORT"))
 
 
 @server.route("/login", methods=["POST"])

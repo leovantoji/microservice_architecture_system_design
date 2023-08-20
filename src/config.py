@@ -15,7 +15,6 @@ class Settings(BaseSettings):
     mysql_user: str
     mysql_password: str
     mysql_db: str
-    mysql_port: int
     auth_docker_repo: str
     auth_app_name: str
     auth_local_path: str
@@ -43,6 +42,11 @@ class Settings(BaseSettings):
     converter_docker_repo: str
     converter_app_name: str
     converter_local_path: str
+
+    # notification
+    notification_docker_repo: str
+    notification_app_name: str
+    notification_local_path: str
 
     model_config = SettingsConfigDict(env_file=find_dotenv())
 

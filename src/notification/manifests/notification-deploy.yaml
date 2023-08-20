@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${NOTIFICATION_APP_NAME}
+  labels:
+    app: ${NOTIFICATION_APP_NAME}
+spec:
+  replicas: ${REPLICAS}
+  selector:
+    matchLabels:
+      app: ${NOTIFICATION_APP_NAME}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: ${MAX_SURGE}
+  template:
+    metadata:
+      labels:
+        app: ${NOTIFICATION_APP_NAME}
+    spec:
+      containers:
+        - name: ${NOTIFICATION_APP_NAME}
+          image: ${DOCKER_ACCOUNT}/${NOTIFICATION_DOCKER_REPO}
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          envFrom:
+            - configMapRef:
+                name: ${NOTIFICATION_APP_NAME}-configmap
+            - secretRef:
+                name: ${NOTIFICATION_APP_NAME}-secret
